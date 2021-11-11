@@ -2,7 +2,6 @@ package linkedlist
 
 import (
 	"bytes"
-	"errors"
 	"fmt"
 )
 
@@ -23,9 +22,9 @@ func (l *SinglyLinkedList) IsEmpty() bool {
 	return l.size == 0
 }
 
-func (l *SinglyLinkedList) Add(index int, val interface{}) error {
+func (l *SinglyLinkedList) Add(index int, val interface{}) bool {
 	if index < 0 || index > l.size {
-		return errors.New("add failed, illegal index")
+		return false
 	}
 
 	prev := l.dummyHead
@@ -35,40 +34,40 @@ func (l *SinglyLinkedList) Add(index int, val interface{}) error {
 	prev.Next = &Node{Val: val, Next: prev.Next}
 	l.size++
 
-	return nil
+	return true
 }
 
-func (l *SinglyLinkedList) AddFirst(val interface{}) error {
+func (l *SinglyLinkedList) AddFirst(val interface{}) bool {
 	return l.Add(0, val)
 }
 
-func (l *SinglyLinkedList) AddLast(val interface{}) error {
+func (l *SinglyLinkedList) AddLast(val interface{}) bool {
 	return l.Add(l.size, val)
 }
 
-func (l *SinglyLinkedList) Get(index int) (interface{}, error) {
+func (l *SinglyLinkedList) Get(index int) (interface{}, bool) {
 	if index < 0 || index >= l.size {
-		return nil, errors.New("get failed, illegal index")
+		return nil, false
 	}
 
 	cur := l.dummyHead.Next
 	for i := 0; i < index; i++ {
 		cur = cur.Next
 	}
-	return cur.Val, nil
+	return cur.Val, true
 }
 
-func (l *SinglyLinkedList) GetFirst() (interface{}, error) {
+func (l *SinglyLinkedList) GetFirst() (interface{}, bool) {
 	return l.Get(0)
 }
 
-func (l *SinglyLinkedList) GetLast() (interface{}, error) {
+func (l *SinglyLinkedList) GetLast() (interface{}, bool) {
 	return l.Get(l.size - 1)
 }
 
-func (l *SinglyLinkedList) Set(index int, val interface{}) error {
+func (l *SinglyLinkedList) Set(index int, val interface{}) bool {
 	if index < 0 || index >= l.size {
-		return errors.New("set failed, illegal index")
+		return false
 	}
 
 	cur := l.dummyHead.Next
@@ -77,7 +76,7 @@ func (l *SinglyLinkedList) Set(index int, val interface{}) error {
 	}
 	cur.Val = val
 
-	return nil
+	return true
 }
 
 func (l *SinglyLinkedList) Contains(val interface{}) bool {
@@ -91,9 +90,9 @@ func (l *SinglyLinkedList) Contains(val interface{}) bool {
 	return false
 }
 
-func (l *SinglyLinkedList) Remove(index int) (interface{}, error) {
+func (l *SinglyLinkedList) Remove(index int) (interface{}, bool) {
 	if index < 0 || index >= l.size {
-		return nil, errors.New("remove failed, illegal index")
+		return nil, false
 	}
 
 	prev := l.dummyHead
@@ -105,14 +104,14 @@ func (l *SinglyLinkedList) Remove(index int) (interface{}, error) {
 	retNode.Next = nil
 	l.size--
 
-	return retNode.Val, nil
+	return retNode.Val, true
 }
 
-func (l *SinglyLinkedList) RemoveFirst() (interface{}, error) {
+func (l *SinglyLinkedList) RemoveFirst() (interface{}, bool) {
 	return l.Remove(0)
 }
 
-func (l *SinglyLinkedList) RemoveLast() (interface{}, error) {
+func (l *SinglyLinkedList) RemoveLast() (interface{}, bool) {
 	return l.Remove(l.size - 1)
 }
 
