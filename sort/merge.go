@@ -27,17 +27,17 @@ func merge(arr []int, l int, mid int, r int) {
 	}
 }
 
-func sort(arr []int, l int, r int) {
+func mergeSort(arr []int, l int, r int) {
 	if l >= r {
 		return
 	}
 
 	mid := l + (r - l) / 2
-	sort(arr, l , mid)
-	sort(arr, mid + 1, r)
+	mergeSort(arr, l , mid)
+	mergeSort(arr, mid + 1, r)
 	merge(arr, l , mid, r)
 }
 
 func MergeSort(arr []int) {
-	sort(arr, 0, len(arr) - 1)
+	mergeSort(arr, 0, len(arr) - 1)
 }
