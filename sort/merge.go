@@ -35,7 +35,7 @@ func mergeSort(arr []int, l int, r int) {
 	mid := l + (r - l) / 2
 	mergeSort(arr, l , mid)
 	mergeSort(arr, mid + 1, r)
-	merge(arr, l , mid, r)
+	merge(arr, l, mid, r)
 }
 
 func MergeSort(arr []int) {
